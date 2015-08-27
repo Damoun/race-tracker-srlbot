@@ -12,5 +12,9 @@ IRC_SETTINGS = {
 }
 
 API_SETTINGS = {
-    'url': 'http://localhost:8000'
+    'url': 'http://localhost:8000',
+    'host': 'localhost',
+    'port': 8000
 }
+
+DEBUG = True
