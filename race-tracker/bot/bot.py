@@ -15,7 +15,7 @@ class SRLBot(SingleServerIRCBot):
                  nickname="Bot"):
         SingleServerIRCBot.__init__(self, [(server, port)], nickname, nickname)
         self.channel = channel
-        self.commands = SRLCommands()
+        self.commands = SRLCommands(self)
 
     def on_nicknameinuse(self, connection, _):
         """
@@ -34,11 +34,24 @@ class SRLBot(SingleServerIRCBot):
         connection.join(self.channel)
         print 'Joined %s' % self.channel
 
+    def on_privmsg(self, _, event):
+        """
+        Handle private message.
+        """
+        words = event.arguments[0].split(" ", 1)
+        command = words[0]
+        author = event.source.nick
+        if command.startswith('!quit') is True:
+            self.commands.do_quit(author, words)
+
     def on_pubmsg(self, _, event):
         """
         Handle message from public chat.
         """
         words = event.arguments[0].split(" ", 1)
         command = words[0]
+        author = event.source.nick
         if command.startswith('.startrace') is True and len(words) >= 2:
-            self.commands.do_startrace(words)
+            self.commands.do_startrace(author, words)
+        elif command.startswith('!quit') is True:
+            self.commands.do_quit(author, words)
