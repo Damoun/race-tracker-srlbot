@@ -10,7 +10,7 @@ setup(
     author='Damien Plenard',
     author_email='damien@plenard.me',
     license="MIT",
-    packages=['bot'],
+    packages=['settings', 'bot'],
     description=(
         "A service to be notified of the start of a race on SpeedRunsLive."
     ),
