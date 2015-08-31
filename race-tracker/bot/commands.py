@@ -4,7 +4,7 @@ This file provide a class execute received commands.
 import json
 import requests
 
-import settings
+from settings import settings
 
 
 class SRLCommands(object):
@@ -16,7 +16,7 @@ class SRLCommands(object):
         Publish new starting race to a web-service.
         """
         print 'New starting race for game %s' % words[1]
-        url = "%s/v1/race" % (settings.API_SETTINGS['url'])
+        url = "%s/v1/race" % settings.get('api', 'url')
         payload = {'abbrev': words[1]}
         try:
             requests.post(url, data=json.dumps(payload))

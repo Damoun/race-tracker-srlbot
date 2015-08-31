@@ -1,20 +1,10 @@
 """
-Settings file for the race-tracker IRC bot.
+Getting settings of the project by reading the settings.ini
 """
 import os
+from ConfigParser import ConfigParser
 
 
-IRC_SETTINGS = {
-    'server': 'irc2.speedrunslive.com',
-    'port': 6667,
-    'nickname': 'rtbot',
-    'channel': '#speedrunslive',
-}
-
-API_SETTINGS = {
-    'url': 'http://localhost:8000',
-    'host': 'localhost',
-    'port': 8000
-}
-
-DEBUG = True
+settings = ConfigParser()
+settings.read(os.getenv('RACETRACKER_SETTINGS',
+                        default='/etc/race-tracker/settings.ini'))
