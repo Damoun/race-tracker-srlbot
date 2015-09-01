@@ -1,6 +1,7 @@
 """
 This file provide class to spawn a SpeedRunsLive IRC bot.
 """
+from __future__ import print_function
 from irc.bot import SingleServerIRCBot
 
 from .commands import SRLCommands
@@ -21,18 +22,18 @@ class SRLBot(SingleServerIRCBot):
         """
         Handle already used nickname.
         """
-        print 'Nickname already used'
+        print('Nickname already used')
         connection.nick(connection.get_nickname() + "_")
 
     def on_welcome(self, connection, _):
         """
         Handle connection and Join channel.
         """
-        print 'Connected to %s:%d' % (
+        print('Connected to %s:%d' % (
             connection.server, connection.port
-        )
+        ))
         connection.join(self.channel)
-        print 'Joined %s' % self.channel
+        print('Joined %s' % self.channel)
 
     def on_privmsg(self, _, event):
         """

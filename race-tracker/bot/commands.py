@@ -1,6 +1,7 @@
 """
 This file provide a class execute received commands.
 """
+from __future__ import print_function
 import json
 import requests
 
@@ -27,7 +28,7 @@ class SRLCommands(object):
         """
         Publish new starting race to a web-service.
         """
-        print 'New starting race for game %s' % words[1]
+        print('New starting race for game %s' % words[1])
         url = "%s/v1/race" % self.url
         payload = {'abbrev': words[1]}
         try:
