@@ -6,7 +6,7 @@ from mock import Mock, MagicMock, patch
 import requests
 import responses
 
-from bot.commands import SRLCommands
+from srlbot.commands import SRLCommands
 
 
 def settings_side_effect(*args):

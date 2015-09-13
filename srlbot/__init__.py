@@ -4,7 +4,7 @@ Provide main entry function to run the bot.
 import logging
 
 from settings import settings
-from .bot import SRLBot
+from .srlbot import SRLBot
 
 
 def main():
