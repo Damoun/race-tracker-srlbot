@@ -52,7 +52,7 @@ class SRLBot(SingleServerIRCBot):
         words = event.arguments[0].split(" ", 1)
         command = words[0]
         author = event.source.nick
-        if command.startswith('.startrace') is True and len(words) >= 2:
+        if command.startswith('.startrace') is True:
             self.commands.do_startrace(author, words)
         elif command.startswith('!quit') is True:
             self.commands.do_quit(author, words)

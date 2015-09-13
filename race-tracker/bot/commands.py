@@ -28,6 +28,8 @@ class SRLCommands(object):
         """
         Publish new starting race to a web-service.
         """
+        if len(words) < 2:
+            return
         print('New starting race for game %s' % words[1])
         url = "%s/v1/race" % self.url
         payload = {'abbrev': words[1]}
