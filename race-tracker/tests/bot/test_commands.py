@@ -9,7 +9,7 @@ import responses
 from bot.commands import SRLCommands
 
 
-def settings_side_effect(*args, **kwargs):
+def settings_side_effect(*args):
     """
     Mocking settings.
     """
@@ -37,6 +37,17 @@ class TestSRLCommandsDoStartraceMethod(TestCase):
             commands.do_startrace('test', ['.startrace', 'sms'])
             responses.reset()
 
+    def test_without_abbrev(self):
+        """
+        Test without the abbrev argument.
+        """
+        with patch('settings.settings.get') as settings_get:
+            settings_get.side_effect = settings_side_effect
+            commands = SRLCommands(Mock())
+            with patch('requests.post') as mock_requests:
+                commands.do_startrace('test', ['.startrace'])
+                mock_requests.assert_not_called()
+
 
 class TestSRLCommandsDoQuitMethod(TestCase):
     """
@@ -54,3 +65,27 @@ class TestSRLCommandsDoQuitMethod(TestCase):
             commands = SRLCommands(bot)
             commands.do_quit('test', ['!quit'])
             bot.die.assert_called_with('')
+
+    def test_bad_admin(self):
+        """
+        Test without an admin.
+        """
+        with patch('settings.settings.get') as settings_get:
+            settings_get.side_effect = settings_side_effect
+            bot = Mock()
+            bot.die = MagicMock()
+            commands = SRLCommands(bot)
+            commands.do_quit('test-nonadmin', ['!quit'])
+            bot.die.assert_not_called()
+
+    def test_with_message(self):
+        """
+        Test with a message.
+        """
+        with patch('settings.settings.get') as settings_get:
+            settings_get.side_effect = settings_side_effect
+            bot = Mock()
+            bot.die = MagicMock()
+            commands = SRLCommands(bot)
+            commands.do_quit('test', ['!quit', 'bye'])
+            bot.die.assert_called_with('bye')
