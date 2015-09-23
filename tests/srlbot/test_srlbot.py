@@ -15,14 +15,12 @@ class TestSRLBotOnNicknameinuseMethod(TestCase):
         """
         Test a nomal call.
         """
-        with patch('bot.commands.SRLCommands.__init__') as srlcommands:
-            srlcommands.return_value = None
-            bot = SRLBot()
-            connection = Mock()
-            connection.nick = MagicMock()
-            connection.get_nickname = MagicMock(return_value='test')
-            bot.on_nicknameinuse(connection, {})
-            self.assertNotEqual('test_', connection.get_nickname())
+        bot = SRLBot()
+        connection = Mock()
+        connection.nick = MagicMock()
+        connection.get_nickname = MagicMock(return_value='test')
+        bot.on_nicknameinuse(connection, {})
+        self.assertNotEqual('test_', connection.get_nickname())
 
 
 class TestSRLBotOnWelcomeMethod(TestCase):
@@ -33,15 +31,13 @@ class TestSRLBotOnWelcomeMethod(TestCase):
         """
         Test a nomal call.
         """
-        with patch('bot.commands.SRLCommands.__init__') as srlcommands:
-            srlcommands.return_value = None
-            bot = SRLBot(channel='test')
-            connection = Mock()
-            connection.join = MagicMock()
-            connection.server = 'localhost'
-            connection.port = 4242
-            bot.on_welcome(connection, {})
-            connection.join.assert_called_with('test')
+        bot = SRLBot(channel='test')
+        connection = Mock()
+        connection.join = MagicMock()
+        connection.server = 'localhost'
+        connection.port = 4242
+        bot.on_welcome(connection, {})
+        connection.join.assert_called_with('test')
 
 
 class TestSRLBotOnPrivmsgMethod(TestCase):
@@ -52,31 +48,28 @@ class TestSRLBotOnPrivmsgMethod(TestCase):
         """
         Test a private message with quit command.
         """
-        with patch('bot.commands.SRLCommands.__init__') as srlcommands:
-            srlcommands.return_value = None
-            bot = SRLBot(channel='test')
-            bot.commands.do_quit = MagicMock()
-            event = Mock()
-            event.arguments = ['!quit']
-            event.source.nick = 'test'
-            bot.on_privmsg({}, event)
-            bot.commands.do_quit.assert_called_with(
-                event.source.nick, event.arguments[0].split(" ", 1)
-            )
+        bot = SRLBot(channel='test')
+        bot.commands = Mock()
+        bot.commands.do_quit = MagicMock()
+        event = Mock()
+        event.arguments = ['!quit']
+        event.source.nick = 'test'
+        bot.on_privmsg({}, event)
+        bot.commands.do_quit.assert_called_with(
+            event.source.nick, event.arguments[0].split(" ", 1)
+        )
 
     def test_unknown_command(self):
         """
         Test a private message with any command.
         """
-        with patch('bot.commands.SRLCommands.__init__') as srlcommands:
-            srlcommands.return_value = None
-            bot = SRLBot(channel='test')
-            bot.commands = Mock()
-            event = Mock()
-            event.arguments = ['.startrace sms']
-            event.source.nick = 'test'
-            bot.on_privmsg({}, event)
-            self.assertEqual([], bot.commands.method_calls)
+        bot = SRLBot(channel='test')
+        bot.commands = Mock()
+        event = Mock()
+        event.arguments = ['.startrace sms']
+        event.source.nick = 'test'
+        bot.on_privmsg({}, event)
+        self.assertEqual([], bot.commands.method_calls)
 
 
 class TestSRLBotOnPubmsgMethod(TestCase):
@@ -87,44 +80,40 @@ class TestSRLBotOnPubmsgMethod(TestCase):
         """
         Test a public message with quit command.
         """
-        with patch('bot.commands.SRLCommands.__init__') as srlcommands:
-            srlcommands.return_value = None
-            bot = SRLBot(channel='test')
-            bot.commands.do_quit = MagicMock()
-            event = Mock()
-            event.arguments = ['!quit']
-            event.source.nick = 'test'
-            bot.on_pubmsg({}, event)
-            bot.commands.do_quit.assert_called_with(
-                event.source.nick, event.arguments[0].split(" ", 1)
-            )
+        bot = SRLBot(channel='test')
+        bot.commands = Mock()
+        bot.commands.do_quit = MagicMock()
+        event = Mock()
+        event.arguments = ['!quit']
+        event.source.nick = 'test'
+        bot.on_pubmsg({}, event)
+        bot.commands.do_quit.assert_called_with(
+            event.source.nick, event.arguments[0].split(" ", 1)
+        )
 
     def test_startrace_command(self):
         """
         Test a public message with quit command.
         """
-        with patch('bot.commands.SRLCommands.__init__') as srlcommands:
-            srlcommands.return_value = None
-            bot = SRLBot(channel='test')
-            bot.commands.do_startrace = MagicMock()
-            event = Mock()
-            event.arguments = ['.startrace sms']
-            event.source.nick = 'test'
-            bot.on_pubmsg({}, event)
-            bot.commands.do_startrace.assert_called_with(
-                event.source.nick, event.arguments[0].split(" ", 1)
-            )
+        bot = SRLBot(channel='test')
+        bot.commands = Mock()
+        bot.commands.do_startrace = MagicMock()
+        event = Mock()
+        event.arguments = ['.startrace sms']
+        event.source.nick = 'test'
+        bot.on_pubmsg({}, event)
+        bot.commands.do_startrace.assert_called_with(
+            event.source.nick, event.arguments[0].split(" ", 1)
+        )
 
     def test_unknown_command(self):
         """
         Test a public message with any command.
         """
-        with patch('bot.commands.SRLCommands.__init__') as srlcommands:
-            srlcommands.return_value = None
-            bot = SRLBot(channel='test')
-            bot.commands = Mock()
-            event = Mock()
-            event.arguments = ['test']
-            event.source.nick = 'test'
-            bot.on_pubmsg({}, event)
-            self.assertEqual([], bot.commands.method_calls)
+        bot = SRLBot(channel='test')
+        bot.commands = Mock()
+        event = Mock()
+        event.arguments = ['test']
+        event.source.nick = 'test'
+        bot.on_pubmsg({}, event)
+        self.assertEqual([], bot.commands.method_calls)
