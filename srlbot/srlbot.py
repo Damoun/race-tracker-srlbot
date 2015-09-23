@@ -4,8 +4,6 @@ This file provide class to spawn a SpeedRunsLive IRC bot.
 from __future__ import print_function
 from irc.bot import SingleServerIRCBot
 
-from .commands import SRLCommands
-
 
 class SRLBot(SingleServerIRCBot):
     """
@@ -16,7 +14,7 @@ class SRLBot(SingleServerIRCBot):
                  nickname="Bot"):
         SingleServerIRCBot.__init__(self, [(server, port)], nickname, nickname)
         self.channel = channel
-        self.commands = SRLCommands(self)
+        self.commands = None
 
     def on_nicknameinuse(self, connection, _):
         """
