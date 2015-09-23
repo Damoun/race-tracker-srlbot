@@ -10,15 +10,16 @@ setup(
     author='Damien Plenard',
     author_email='damien@plenard.me',
     url='https://github.com/race-tracker/srlbot',
-    license="MIT",
+    license='MIT',
     packages=['srlbot'],
-    test_suite="tests",
+    test_suite='tests',
     description=(
-        "An IRC bot used to monitor race from SpeedRunsLive."
+        'An IRC bot used to monitor race from SpeedRunsLive.'
     ),
-    install_requires=[
-        "irc",
-    ],
+    install_requires=['irc', 'requests'],
+    extras_require={
+        'test': ['coverage', 'coveralls', 'mock', 'responses'],
+    },
     entry_points={
         'console_scripts': [
             'srlbot = srlbot:main',
