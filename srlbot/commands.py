@@ -5,17 +5,15 @@ from __future__ import print_function
 import json
 import requests
 
-from settings import settings
-
 
 class SRLCommands(object):
     """
     Class to implement action on SpeedRunsLive RaceBot command.
     """
-    def __init__(self, bot):
-        self.url = settings.get('api', 'url')
+    def __init__(self, bot, admins):
         self.bot = bot
-        self.admins = settings.get('irc', 'admins').split(',')
+        self.admins = admins
+        bot.commands = self
 
     def do_quit(self, author, words):
         """
@@ -23,17 +21,37 @@ class SRLCommands(object):
         """
         if any(author in admin for admin in self.admins):
             self.bot.die(len(words) == 2 and words[1] or "")
+            return True
+        return False
 
     def do_startrace(self, _, words):
         """
-        Publish new starting race to a web-service.
+        Handle a new starting race.
         """
         if len(words) < 2:
-            return
+            return False
         print('New starting race for game %s' % words[1])
-        url = "%s/v1/race" % self.url
+        return True
+
+
+class HTTPSRLCommands(SRLCommands):
+    """
+    Command class to push command to an url.
+    """
+    def __init__(self, bot, admins, urls):
+        super(HTTPSRLCommands, self).__init__(bot, admins)
+        self.urls = urls
+
+    def do_startrace(self, author, words):
+        """
+        Publish new starting race to a web-service.
+        """
+        if super(HTTPSRLCommands, self).do_startrace(author, words) == False:
+            return False
+        url = self.urls['startrace']
         payload = {'abbrev': words[1]}
         try:
             requests.post(url, data=json.dumps(payload))
         except requests.exceptions.ConnectionError:
-            pass
+            return False
+        return True
