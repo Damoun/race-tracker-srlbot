@@ -1,2 +1,2 @@
-# srlbot [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](/LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/0d19081b44e04b3082e75f02f340c4dd)](https://www.codacy.com/app/damoun-github/srlbot)
+# srlbot [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](/LICENSE) [![Build Status](https://travis-ci.org/race-tracker/srlbot.svg)](https://travis-ci.org/race-tracker/srlbot) [![codecov.io](http://codecov.io/github/race-tracker/srlbot/coverage.svg?branch=develop)](http://codecov.io/github/race-tracker/srlbot?branch=develop) [![Codacy Badge](https://api.codacy.com/project/badge/0d19081b44e04b3082e75f02f340c4dd)](https://www.codacy.com/app/damoun-github/srlbot)
 An IRC bot used to monitor race from SpeedRunsLive

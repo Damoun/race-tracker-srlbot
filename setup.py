@@ -18,7 +18,7 @@ setup(
     ),
     install_requires=['irc', 'requests'],
     extras_require={
-        'test': ['coverage', 'coveralls', 'mock', 'responses'],
+        'test': ['coverage', 'mock', 'responses', 'codecov'],
     },
     entry_points={
         'console_scripts': [
