@@ -16,7 +16,7 @@ setup(
     description=(
         'An IRC bot used to monitor race from SpeedRunsLive.'
     ),
-    install_requires=['irc', 'requests'],
+    install_requires=['irc', 'requests', 'argparse'],
     extras_require={
         'test': ['coverage', 'mock', 'responses', 'codecov'],
     },
