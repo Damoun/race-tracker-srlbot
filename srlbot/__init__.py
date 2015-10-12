@@ -3,7 +3,10 @@ Provide main entry function to run the bot.
 """
 import logging
 import argparse
-from configparser import SafeConfigParser
+try:
+    import configparser
+except ImportError:
+    import ConfigParser as configparser
 
 from .srlbot import SRLBot
 from .commands import HTTPSRLCommands
@@ -22,7 +25,7 @@ def handle_argument():
 
 
 def get_config(filename):
-    config = SafeConfigParser({
+    config = configparser.SafeConfigParser({
         'server': 'irc.speedrunslive.com',
         'port': '6667',
         'nickname': 'srlbot',
