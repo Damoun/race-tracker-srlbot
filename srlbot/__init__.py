@@ -3,6 +3,7 @@ Provide main entry function to run the bot.
 """
 import logging
 import argparse
+from configparser import SafeConfigParser
 
 from .srlbot import SRLBot
 from .commands import HTTPSRLCommands
@@ -20,15 +21,32 @@ def handle_argument():
     return parser.parse_args()
 
 
+def get_config(filename):
+    config = SafeConfigParser({
+        'server': 'irc.speedrunslive.com',
+        'port': '6667',
+        'nickname': 'srlbot',
+        'admins': '',
+        'startrace': 'http://localhost',
+    })
+    config.read(filename)
+    return config
+
+
 def main():
     """
     Create and run the bot.
     """
     options = handle_argument()
-    bot = SRLBot(channel="#race-tracker")
-    command = HTTPSRLCommands(
-        bot, ['dam0un'], {'startrace': 'http://localhost'}
+    config = get_config(options.config)
+    bot = SRLBot(
+        server=config.get('irc', 'server'),
+        port=config.getint('irc', 'port'),
+        channel=config.get('irc', 'channel'),
+        nickname=config.get('irc', 'nickname')
     )
+    HTTPSRLCommands(bot, config.get('irc', 'admins').split(','),
+                    {'startrace': config.get('url', 'startrace')})
     bot.start()
 
 if __name__ == "__main__":
