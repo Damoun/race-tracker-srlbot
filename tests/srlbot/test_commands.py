@@ -1,5 +1,5 @@
 """
-This file contain unit test for the bot/commands.py file.
+This file contain unit test for the srlbot/commands.py file.
 """
 from unittest import TestCase
 from mock import Mock, MagicMock, patch

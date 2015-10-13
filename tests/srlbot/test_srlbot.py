@@ -1,5 +1,5 @@
 """
-This file contain unit test for the bot/commands.py file.
+This file contain unit test for the srlbot/srlbot.py file.
 """
 from unittest import TestCase
 from mock import Mock, MagicMock, patch
@@ -29,7 +29,7 @@ class TestSRLBotOnWelcomeMethod(TestCase):
     """
     def test_normal(self):
         """
-        Test a nomal call.
+        Test a normal call.
         """
         bot = SRLBot(channel='test')
         connection = Mock()
