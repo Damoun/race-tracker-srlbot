@@ -19,8 +19,8 @@ def handle_argument():
     parser = argparse.ArgumentParser(
         description='Monitor & handle SRL command from an IRC channel.'
     )
-    parser.add_argument('-c', '--config',  metavar='filename', type=str,
-                        nargs=1, help='set configuration file.')
+    parser.add_argument('config', type=str,
+                        help='set configuration file path.')
     return parser.parse_args()
 
 
