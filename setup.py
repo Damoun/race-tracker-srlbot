@@ -17,9 +17,7 @@ setup(
         'An IRC bot used to monitor race from SpeedRunsLive.'
     ),
     install_requires=['irc', 'requests', 'argparse'],
-    extras_require={
-        'test': ['coverage', 'mock', 'responses', 'codecov'],
-    },
+    tests_require=['coverage', 'mock', 'responses', 'codecov'],
     entry_points={
         'console_scripts': [
             'srlbot = srlbot:main',
